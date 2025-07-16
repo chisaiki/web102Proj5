@@ -2,8 +2,10 @@ import { useState, useEffect } from 'react'
 import './App.css'
 import { MarvelAPI } from './services/marvelApi'
 import APITester from './components/APITester'
+import MarvelDashboard from './components/MarvelDashboard'
 
 function App() {
+  const [currentView, setCurrentView] = useState('dashboard')
   const [characters, setCharacters] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
@@ -50,11 +52,39 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Marvel Character Explorer</h1>
+      <nav className="app-nav">
+        <h1>Marvel Character Explorer</h1>
+        <div className="nav-buttons">
+          <button 
+            className={currentView === 'dashboard' ? 'nav-btn active' : 'nav-btn'}
+            onClick={() => setCurrentView('dashboard')}
+          >
+            📊 Dashboard
+          </button>
+          <button 
+            className={currentView === 'explorer' ? 'nav-btn active' : 'nav-btn'}
+            onClick={() => setCurrentView('explorer')}
+          >
+            🔍 Character Explorer
+          </button>
+          <button 
+            className={currentView === 'tester' ? 'nav-btn active' : 'nav-btn'}
+            onClick={() => setCurrentView('tester')}
+          >
+            🔧 API Tester
+          </button>
+        </div>
+      </nav>
+
+      {currentView === 'dashboard' && <MarvelDashboard />}
       
-      <APITester />
+      {currentView === 'tester' && <APITester />}
       
-      <div className="controls">
+      {currentView === 'explorer' && (
+        <div className="explorer-section">
+          <h2>Character Search & Explorer</h2>
+          
+          <div className="controls">
         <form onSubmit={handleSearch} className="search-form">
           <input
             type="text"
@@ -100,9 +130,11 @@ function App() {
         ))}
       </div>
 
-      {characters.length === 0 && !loading && !error && (
-        <div className="no-results">
-          <p>No characters found. Try searching for something!</p>
+          {characters.length === 0 && !loading && !error && (
+            <div className="no-results">
+              <p>No characters found. Try searching for something!</p>
+            </div>
+          )}
         </div>
       )}
     </div>

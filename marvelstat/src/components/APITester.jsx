@@ -74,11 +74,12 @@ function APITester() {
       margin: '20px', 
       border: '2px solid #ccc', 
       borderRadius: '8px',
-      backgroundColor: '#f9f9f9'
+      backgroundColor: '#f9f9f9',
+      color: 'black'
     }}>
-      <h2>🔧 API Troubleshooter</h2>
-      <p>Current API Key: {import.meta.env.VITE_API_KEY ? '✅ Loaded' : '❌ Missing'}</p>
-      <p>Key Length: {import.meta.env.VITE_API_KEY?.length || 0} characters</p>
+      <h2 style={{ color: 'black' }}>🔧 API Troubleshooter</h2>
+      <p style={{ color: 'black' }}>Current API Key: {import.meta.env.VITE_API_KEY ? '✅ Loaded' : '❌ Missing'}</p>
+      <p style={{ color: 'black' }}>Key Length: {import.meta.env.VITE_API_KEY?.length || 0} characters</p>
       <button 
         onClick={testAPI} 
         disabled={loading}
@@ -101,14 +102,15 @@ function APITester() {
           background: '#f0f0f0', 
           borderRadius: '4px',
           whiteSpace: 'pre-wrap',
-          fontSize: '12px'
+          fontSize: '12px',
+          color: 'black'
         }}>
           {result}
         </pre>
       )}
       
-      <div style={{ marginTop: '15px', fontSize: '12px', color: '#666' }}>
-        <strong>Troubleshooting Steps:</strong>
+      <div style={{ marginTop: '15px', fontSize: '12px', color: 'black' }}>
+        <strong style={{ color: 'black' }}>Troubleshooting Steps:</strong>
         <ol>
           <li>Check browser console for detailed logs</li>
           <li>Verify domain authorization at <a href="https://developer.marvel.com/account" target="_blank">developer.marvel.com/account</a></li>
