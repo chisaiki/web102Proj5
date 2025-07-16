@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import { MarvelAPI } from './services/marvelApi'
+import APITester from './components/APITester'
 
 function App() {
   const [characters, setCharacters] = useState([])
@@ -52,6 +51,8 @@ function App() {
   return (
     <div className="App">
       <h1>Marvel Character Explorer</h1>
+      
+      <APITester />
       
       <div className="controls">
         <form onSubmit={handleSearch} className="search-form">

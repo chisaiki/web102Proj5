@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Marvel API Key Test</title>
+</head>
+<body>
+    <h1>Marvel API Key Test</h1>
+    <button onclick="testAPI()">Test API Key</button>
+    <div id="result"></div>
+
+    <script>
+        async function testAPI() {
+            const apiKey = '1c05b623b9eb9e2b63e4af22af4759adba2afdd7';
+            const url = `https://gateway.marvel.com/v1/public/characters?apikey=${apiKey}&limit=1`;
+            
+            console.log('Testing URL:', url);
+            
+            try {
+                const response = await fetch(url);
+                console.log('Response status:', response.status);
+                console.log('Response headers:', response.headers);
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    document.getElementById('result').innerHTML = `
+                        <h2 style="color: green;">✅ API Key Works!</h2>
+                        <p>Found ${data.data.results.length} characters</p>
+                        <pre>${JSON.stringify(data.data.results[0], null, 2)}</pre>
+                    `;
+                } else {
+                    const errorText = await response.text();
+                    document.getElementById('result').innerHTML = `
+                        <h2 style="color: red;">❌ Error ${response.status}</h2>
+                        <p>${response.statusText}</p>
+                        <pre>${errorText}</pre>
+                    `;
+                }
+            } catch (error) {
+                document.getElementById('result').innerHTML = `
+                    <h2 style="color: red;">❌ Network Error</h2>
+                    <p>${error.message}</p>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>
